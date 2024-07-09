@@ -3,11 +3,15 @@ import express from 'express';
 import db from './db.js';
 import bodyParser from 'body-parser';
 import personRoutes from './routes/personRoutes.js';
+import dotenv from 'dotenv';
 
 const app = express();
 
 app.use(bodyParser.json()); //all data in json form from body come into "req.body"
 app.use('/person',personRoutes);   //use the router
+
+dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 //API
 
@@ -30,7 +34,8 @@ app.get('/',(req,res)=>{             //this is endpoint
 // })
 
 
-app.listen(3000,()=>{
+
+app.listen(PORT,()=>{
     console.log("this app is listening on server 3000");
 })
 
