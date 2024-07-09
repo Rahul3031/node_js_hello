@@ -53,7 +53,7 @@ router.get('/',async (req,res)=>{
     }
     catch(err){
         console.log("error detected: ",err);
-        res.status(500).json({error: 'internal server Error'});    
+        res.status(500).json({error: 'internal serverr Error'});    
     } 
 })
 
