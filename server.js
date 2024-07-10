@@ -4,11 +4,25 @@ import db from './db.js';
 import bodyParser from 'body-parser';
 import personRoutes from './routes/personRoutes.js';
 import dotenv from 'dotenv';
+import passport from './auth.js';
 
 const app = express();
 
+// MiddleWare-> it is riun btw the request and response in serial manner using next() function
+const logRequest = (req,res,next) => {
+    console.log(`${new Date().toLocaleString()} Request made to: ${req.originalUrl}`);
+    next();
+}
+
+
+const localAuthMiddleware = passport.authenticate('local',{session: false});
+app.use(passport.initialize());
+
+// app.use-> MiddleWare
 app.use(bodyParser.json()); //all data in json form from body come into "req.body"
 app.use('/person',personRoutes);   //use the router
+app.use(logRequest);  //used btw all the routes
+
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -20,19 +34,10 @@ app.get('/',(req,res)=>{             //this is endpoint
     res.send("hi my name is rahul tomar");   
 })
 
-// app.get('/age',(req,res)=>{          //this is endpoint
-//     res.send("i am 23");
+//middleware can be used here or in btw routes too
+// app.get('/',logRequest,(req,res)=>{             //this is endpoint
+//     res.send("hi my name is rahul tomar");   
 // })
-
-// app.get('/place',(req,res)=>{           //this is endpoint
-//     res.send("i am from panipat haryana");
-// })
-
-// app.post('/item', (req,res)=>
-// {
-//     res.send("data is added succesful");
-// })
-
 
 
 app.listen(PORT,()=>{

@@ -2,8 +2,8 @@ import mongoose from "mongoose";  // Import mongoose to connect the DB server wi
 import dotenv from "dotenv";
 
 dotenv.config();
-// const mongoUrl = process.env.MONGO_URL_LOCAL;
-const mongoUrl = process.env.MONGO_URL;
+const mongoUrl = process.env.MONGO_URL_LOCAL;
+// const mongoUrl = process.env.MONGO_URL;
 
 mongoose.connect(mongoUrl, {       // Make connection to MongoDB URL
     useNewUrlParser: true,         // This option is deprecated in newer Mongoose versions
